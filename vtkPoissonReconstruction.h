@@ -35,14 +35,14 @@
 #ifndef __vtkPoissonReconstruction_h
 #define __vtkPoissonReconstruction_h
 
-#include "vtkPoissonReconstructionConfigure.h"
+#include "PoissonReconstructionModule.h" // for export module
 #include "vtkPolyDataAlgorithm.h"
 /**
  * \class vtkPoissonReconstruction
  * \brief vtk Wrapping of the Poisson Reconstruction method.
  * see http://www.midasjournal.org/browse/publication/718 for reference.
  * */
-class vtkPoissonReconstruction_EXPORT vtkPoissonReconstruction:public vtkPolyDataAlgorithm
+class POISSONRECONSTRUCTION_EXPORT vtkPoissonReconstruction:public vtkPolyDataAlgorithm
 {
 public:
   vtkTypeMacro(vtkPoissonReconstruction, vtkPolyDataAlgorithm);

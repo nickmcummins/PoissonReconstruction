@@ -711,7 +711,7 @@ OctNode<NodeData,Real>* OctNode<NodeData,Real>::getNearestLeaf(const Point3D<Rea
 	OctNode<NodeData,Real>* temp;
 	int cIndex;
 	if(!children){return this;}
-	centerAndWidth(center,width);
+	centerAndWidth(center,twidth);
 	temp=this;
 	while(temp->children){
 		cIndex=CornerIndex(center,p);

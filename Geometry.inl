@@ -31,7 +31,7 @@
  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =========================================================================*/
 #include <cstdio>
-
+#include <stdlib.h>
 template<class Real>
 Real Random(void){return Real(rand())/RAND_MAX;}
 

@@ -187,7 +187,7 @@ public:
       if ( index == static_cast< int >( memory.size() - 1 ) )
         {
         mem = new T[blockSize];
-        if ( !mem ) { fprintf(stderr, "Failed to allocate memory\n"); exit(0); }
+        if ( !mem ) { fprintf(stderr, "Failed to allocate memory\n"); }
         memory.push_back(mem);
         }
       index++;
