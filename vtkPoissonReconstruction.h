@@ -32,11 +32,12 @@
  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 =========================================================================*/
 
-#ifndef __vtkPoissonReconstruction_h
-#define __vtkPoissonReconstruction_h
+#ifndef vtkPoissonReconstruction_h
+#define vtkPoissonReconstruction_h
 
 #include "PoissonReconstructionModule.h" // for export module
 #include "vtkPolyDataAlgorithm.h"
+
 /**
  * \class vtkPoissonReconstruction
  * \brief vtk Wrapping of the Poisson Reconstruction method.
@@ -46,7 +47,7 @@ class POISSONRECONSTRUCTION_EXPORT vtkPoissonReconstruction:public vtkPolyDataAl
 {
 public:
   vtkTypeMacro(vtkPoissonReconstruction, vtkPolyDataAlgorithm);
-  void PrintSelf(ostream & os, vtkIndent indent);
+  void PrintSelf(ostream & os, vtkIndent indent) VTK_OVERRIDE;
 
   static vtkPoissonReconstruction * New();
 
@@ -74,14 +75,11 @@ public:
 protected:
   vtkPoissonReconstruction();
 
-  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *);
+  int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *)  VTK_OVERRIDE;
 
 private:
-  vtkPoissonReconstruction(const vtkPoissonReconstruction &); // Not
-                                                              // implemented.
-  void operator=(const vtkPoissonReconstruction &);           // Not
-                                                              // implemented.
-
+  vtkPoissonReconstruction(const vtkPoissonReconstruction &) VTK_DELETE_FUNCTION;
+  void operator=(const vtkPoissonReconstruction &) VTK_DELETE_FUNCTION;
   int Verbose;
   int NoResetSamples;
   int NoClipTree;
