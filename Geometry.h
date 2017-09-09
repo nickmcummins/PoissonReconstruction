@@ -37,8 +37,6 @@
 #include <vector>
 #include "Hash.h"
 
-#include "vtkPoissonReconstructionConfigure.h"
-
 template< class Real >
 Real Random(void);
 

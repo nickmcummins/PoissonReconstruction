@@ -112,13 +112,13 @@ double ArcTan2(const double& y,const double& x){
 	/* This first case should never happen */
 	if(y==0 && x==0){return 0;}
 	if(x==0){
-		if(y>0){return PI/2.0;}
-		else{return -PI/2.0;}
+		if(y>0){return M_PI/2.0;}
+		else{return -M_PI/2.0;}
 	}
 	if(x>=0){return atan(y/x);}
 	else{
-		if(y>=0){return atan(y/x)+PI;}
-		else{return atan(y/x)-PI;}
+		if(y>=0){return atan(y/x)+M_PI;}
+		else{return atan(y/x)-M_PI;}
 	}
 }
 double Angle(const double in[2]){
