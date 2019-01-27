@@ -78,8 +78,8 @@ protected:
   int RequestData(vtkInformation *, vtkInformationVector **, vtkInformationVector *)  VTK_OVERRIDE;
 
 private:
-  vtkPoissonReconstruction(const vtkPoissonReconstruction &) VTK_DELETE_FUNCTION;
-  void operator=(const vtkPoissonReconstruction &) VTK_DELETE_FUNCTION;
+  vtkPoissonReconstruction(const vtkPoissonReconstruction&) = delete;
+  void operator=(const vtkPoissonReconstruction&) = delete;
   int Verbose;
   int NoResetSamples;
   int NoClipTree;

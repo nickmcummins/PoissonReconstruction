@@ -6,7 +6,6 @@ set(Module_SRCS
     MultiGridOctreeData.cpp
     Geometry.cpp
     MultiGridOctest.cpp
-    vtkPoissonReconstruction.cxx
   )
 set_source_files_properties(
     Factor.cpp
@@ -17,4 +16,10 @@ set_source_files_properties(
     PROPERTIES WRAP_EXCLUDE 1
 )
 
-vtk_module_library(PoissonReconstruction ${Module_SRCS})
+if (VTK_VERSION VERSION_LESS "8.90.0")
+  vtk_module_library(PoissonReconstruction ${Module_SRCS})
+else()
+  vtk_module_add_module(VTK::PoissonReconstruction
+    SOURCES ${Module_SRCS}
+    )
+endif()
