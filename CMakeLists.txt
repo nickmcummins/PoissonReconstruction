@@ -6,6 +6,7 @@ set(Module_SRCS
     MultiGridOctreeData.cpp
     Geometry.cpp
     MultiGridOctest.cpp
+    vtkPoissonReconstruction
   )
 set_source_files_properties(
     Factor.cpp
