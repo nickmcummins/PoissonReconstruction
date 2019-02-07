@@ -2657,8 +2657,8 @@ inline int Octree<Degree>::GetEdgeLoops(std::vector<std::pair<long long,long lon
 template<int Degree>
 inline int Octree<Degree>::AddTriangles(CoredMeshData* mesh,std::vector<CoredPointIndex> edges[3],std::vector<Point3D<float> >* interiorPositions,const int& offSet)
 {
-	std::vector<CoredPointIndex> e;
-	for(int i=0;i<3;i++){for(size_t j=0;j<edges[i].size();j++){e.push_back(edges[i][j]);}}
+	std::vector<CoredPointIndex> e[3];
+	for(int i=0;i<3;i++){for(size_t j=0;j<edges[i].size();j++){e[i].push_back(edges[i][j]);}}
 	return AddTriangles(mesh,e,interiorPositions,offSet);
 }
 

@@ -19,8 +19,11 @@ set_source_files_properties(
 
 if (VTK_VERSION VERSION_LESS "8.90.0")
   vtk_module_library(PoissonReconstruction ${Module_SRCS})
+  target_compile_options (PoissonReconstruction PUBLIC -Wno-deprecated)
 else()
   vtk_module_add_module(VTK::PoissonReconstruction
     SOURCES ${Module_SRCS}
     )
+  target_compile_options (PoissonReconstruction PUBLIC -Wno-deprecated)
 endif()
+
