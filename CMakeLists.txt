@@ -24,6 +24,8 @@ else()
   vtk_module_add_module(VTK::PoissonReconstruction
     SOURCES ${Module_SRCS}
     )
-  target_compile_options (PoissonReconstruction PUBLIC -Wno-deprecated)
+  if (NOT WIN32)
+    target_compile_options (PoissonReconstruction PUBLIC -Wno-deprecated)
+  endif()
 endif()
 
