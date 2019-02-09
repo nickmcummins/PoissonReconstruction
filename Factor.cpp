@@ -34,6 +34,9 @@
 // Polynomial Roots //
 //////////////////////
 #include <math.h>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846264338327950288
+#endif
 #include "Factor.h"
 int Factor(double a1,double a0,double roots[1][2],const double& EPS){
 	if(fabs(a1)<=EPS){return 0;}

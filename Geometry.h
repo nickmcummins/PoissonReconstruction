@@ -173,7 +173,7 @@ public:
   int addTriangle(const int & p1, const int & p2, const int & p3);
 
 protected:
-  hash_map< long long, int > edgeMap;
+  std::unordered_map< long long, int > edgeMap;
   static long long EdgeIndex(const int & p1, const int & p2);
 
   double area(const Triangle & t);

@@ -141,7 +141,10 @@ void Cube::FactorFaceIndex(const int& idx,int& dir,int& offSet){
 }
 
 int Cube::FaceAdjacentToEdges(const int& eIndex1,const int& eIndex2){
-	int f1,f2,g1,g2;
+  int f1 = 0;
+  int f2 = 0;
+  int g1 = 0;
+  int g2 = 00;
 	FacesAdjacentToEdge(eIndex1,f1,f2);
 	FacesAdjacentToEdge(eIndex2,g1,g2);
 	if(f1==g1 || f1==g2){return f1;}
@@ -697,7 +700,7 @@ int MarchingCubes::GetIndex(const double v[Cube::CORNERS],const double& iso){
 }
 int MarchingCubes::GetFaceIndex(const double values[Cube::CORNERS],const double& iso,const int& faceIndex){
 	int i,j,x,y,z,idx=0;
-	double v[2][2];
+	double v[2][2] = {{0.0, 0.0},{0.0, 0.0}};
 	Cube::FactorFaceIndex(faceIndex,x,y,z);
 	if		(x<0){for(i=0;i<2;i++){for(j=0;j<2;j++){v[i][j]=values[Cube::CornerIndex(0,i,j)];}}}
 	else if	(x>0){for(i=0;i<2;i++){for(j=0;j<2;j++){v[i][j]=values[Cube::CornerIndex(1,i,j)];}}}
@@ -842,7 +845,7 @@ int MarchingCubes::GetIndex(const float v[Cube::CORNERS],const float& iso){
 }
 int MarchingCubes::GetFaceIndex(const float values[Cube::CORNERS],const float& iso,const int& faceIndex){
 	int i,j,x,y,z,idx=0;
-	double v[2][2];
+	double v[2][2] = {{0.0, 0.0},{0.0, 0.0}};
 	Cube::FactorFaceIndex(faceIndex,x,y,z);
 	if		(x<0){for(i=0;i<2;i++){for(j=0;j<2;j++){v[i][j]=values[Cube::CornerIndex(0,i,j)];}}}
 	else if	(x>0){for(i=0;i<2;i++){for(j=0;j<2;j++){v[i][j]=values[Cube::CornerIndex(1,i,j)];}}}
@@ -858,9 +861,9 @@ int MarchingCubes::GetFaceIndex(const float values[Cube::CORNERS],const float& i
 }
 int MarchingCubes::GetFaceIndex(const int& mcIndex,const int& faceIndex){
 	int i,j,x,y,z,idx=0;
-	int v[2][2];
+	double v[2][2] = {{0.0, 0.0},{0.0, 0.0}};
 	Cube::FactorFaceIndex(faceIndex,x,y,z);
-	if		(x<0){for(i=0;i<2;i++){for(j=0;j<2;j++){v[i][j]=mcIndex&(1<<MarchingCubes::cornerMap[Cube::CornerIndex(0,i,j)]);}}}
+	if(x<0){for(i=0;i<2;i++){for(j=0;j<2;j++){v[i][j]=mcIndex&(1<<MarchingCubes::cornerMap[Cube::CornerIndex(0,i,j)]);}}}
 	else if	(x>0){for(i=0;i<2;i++){for(j=0;j<2;j++){v[i][j]=mcIndex&(1<<MarchingCubes::cornerMap[Cube::CornerIndex(1,i,j)]);}}}
 	else if	(y<0){for(i=0;i<2;i++){for(j=0;j<2;j++){v[i][j]=mcIndex&(1<<MarchingCubes::cornerMap[Cube::CornerIndex(i,0,j)]);}}}
 	else if	(y>0){for(i=0;i<2;i++){for(j=0;j<2;j++){v[i][j]=mcIndex&(1<<MarchingCubes::cornerMap[Cube::CornerIndex(i,1,j)]);}}}

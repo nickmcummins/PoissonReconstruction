@@ -101,7 +101,7 @@ public:
       int nodeIndex;
       Real centerWeightContribution;
     };
-    };
+  };
   Real value;
 
   TreeNodeData();
@@ -211,7 +211,7 @@ public:
 public:
     int                                                fIndex, maxDepth;
     std::vector< std::pair< long long, long long > > * edges;
-    hash_map< long long, std::pair< RootInfo, int > > *vertexCount;
+    std::unordered_map< long long, std::pair< RootInfo, int > > *vertexCount;
     void Function(const TreeOctNode *node1, const TreeOctNode *node2);
   };
 
@@ -257,26 +257,26 @@ public:
 
   int SetBoundaryMCRootPositions(const int & sDepth,
                                  const Real & isoValue,
-                                 hash_map< long long, int > & boundaryRoots,
-                                 hash_map< long long, std::pair< Real, Point3D< Real > > > & boundaryNormalHash,
+                                 std::unordered_map< long long, int > & boundaryRoots,
+                                 std::unordered_map< long long, std::pair< Real, Point3D< Real > > > & boundaryNormalHash,
                                  CoredMeshData *mesh,
                                  const int & nonLinearFit);
 
   int SetMCRootPositions(TreeOctNode *node,
                          const int & sDepth,
                          const Real & isoValue,
-                         hash_map< long long, int > & boundaryRoots,
-                         hash_map< long long, int > *interiorRoots,
-                         hash_map< long long, std::pair< Real, Point3D< Real > > > & boundaryNormalHash,
-                         hash_map< long long, std::pair< Real, Point3D< Real > > > *interiorNormalHash,
+                         std::unordered_map< long long, int > & boundaryRoots,
+                         std::unordered_map< long long, int > *interiorRoots,
+                         std::unordered_map< long long, std::pair< Real, Point3D< Real > > > & boundaryNormalHash,
+                         std::unordered_map< long long, std::pair< Real, Point3D< Real > > > *interiorNormalHash,
                          std::vector< Point3D< float > > *interiorPositions,
                          CoredMeshData *mesh,
                          const int & nonLinearFit);
 
   int GetMCIsoTriangles(TreeOctNode *node,
                         CoredMeshData *mesh,
-                        hash_map< long long, int > & boundaryRoots,
-                        hash_map< long long, int > *interiorRoots,
+                        std::unordered_map< long long, int > & boundaryRoots,
+                        std::unordered_map< long long, int > *interiorRoots,
                         std::vector< Point3D< float > > *interiorPositions,
                         const int & offSet,
                         const int & sDepth,
@@ -294,8 +294,8 @@ public:
                           bool addBarycenter);
 
   void GetMCIsoEdges(TreeOctNode *node,
-                     hash_map< long long, int > & boundaryRoots,
-                     hash_map< long long, int > *interiorRoots,
+                     std::unordered_map< long long, int > & boundaryRoots,
+                     std::unordered_map< long long, int > *interiorRoots,
                      const int & sDepth,
                      std::vector< std::pair< long long, long long > > & edges);
 
@@ -310,14 +310,14 @@ public:
               const Real & isoValue,
               const int & maxDepth,
               Point3D< Real > & position,
-              hash_map< long long, std::pair< Real, Point3D< Real > > > & normalHash,
+              std::unordered_map< long long, std::pair< Real, Point3D< Real > > > & normalHash,
               Point3D< Real > *normal,
               const int & nonLinearFit);
 
   int GetRoot(const RootInfo & ri,
               const Real & isoValue,
               Point3D< Real > & position,
-              hash_map< long long, std::pair< Real, Point3D< Real > > > & normalHash,
+              std::unordered_map< long long, std::pair< Real, Point3D< Real > > > & normalHash,
               const int & nonLinearFit);
 
   static int GetRootIndex(const TreeOctNode *node, const int & edgeIndex, const int & maxDepth, RootInfo & ri);
@@ -329,8 +329,8 @@ public:
                           RootInfo & ri);
 
   static int GetRootIndex(const long long & key,
-                          hash_map< long long, int > & boundaryRoots,
-                          hash_map< long long, int > *interiorRoots,
+                          std::unordered_map< long long, int > & boundaryRoots,
+                          std::unordered_map< long long, int > *interiorRoots,
                           CoredPointIndex & index);
 
   static int GetRootPair(const RootInfo & root, const int & maxDepth, RootInfo & pair);

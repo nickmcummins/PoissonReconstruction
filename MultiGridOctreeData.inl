@@ -1240,7 +1240,7 @@ inline void Octree<Degree>::FaceEdgesFunction::Function(const TreeOctNode* node1
 
   if(!node1->children && MarchingCubes::HasRoots(node1->nodeData.mcIndex)){
     RootInfo ri1,ri2;
-    hash_map<long long,std::pair<RootInfo,int> >::iterator iter;
+    std::unordered_map<long long,std::pair<RootInfo,int> >::iterator iter;
     int isoTri[DIMENSION*MarchingCubes::MAX_TRIANGLES];
     int count=MarchingCubes::AddTriangleIndices(node1->nodeData.mcIndex,isoTri);
 
@@ -1371,8 +1371,8 @@ inline void Octree<Degree>::GetMCIsoTriangles(const Real& isoValue,CoredMeshData
 {
   TreeOctNode* temp;
 
-  hash_map<long long,int> roots;
-  hash_map<long long,std::pair<Real,Point3D<Real> > > *normalHash=new hash_map<long long,std::pair<Real,Point3D<Real> > >();
+  std::unordered_map<long long,int> roots;
+  std::unordered_map<long long,std::pair<Real,Point3D<Real> > > *normalHash=new std::unordered_map<long long,std::pair<Real,Point3D<Real> > >();
 
   SetIsoSurfaceCorners(isoValue,0,fullDepthIso);
   // At the point all of the corner values have been set and all nodes are valid. Now it's just a matter
@@ -1412,8 +1412,8 @@ template<int Degree>
 inline void Octree<Degree>::GetMCIsoTriangles(const Real& isoValue,const int& subdivideDepth,CoredMeshData* mesh,const int& fullDepthIso,const int& nonLinearFit, bool addBarycenter)
 {
   TreeOctNode* temp;
-  hash_map<long long,int> boundaryRoots,*interiorRoots;
-  hash_map<long long,std::pair<Real,Point3D<Real> > > *boundaryNormalHash,*interiorNormalHash;
+  std::unordered_map<long long,int> boundaryRoots,*interiorRoots;
+  std::unordered_map<long long,std::pair<Real,Point3D<Real> > > *boundaryNormalHash,*interiorNormalHash;
   std::vector<Point3D<float> >* interiorPoints;
 
   int sDepth;
@@ -1434,7 +1434,7 @@ inline void Octree<Degree>::GetMCIsoTriangles(const Real& isoValue,const int& su
   // At this point all of the corner values have been set and all nodes are valid. Now it's just a matter
   // of running marching cubes.
 
-  boundaryNormalHash=new hash_map<long long,std::pair<Real,Point3D<Real> > >();
+  boundaryNormalHash=new std::unordered_map<long long,std::pair<Real,Point3D<Real> > >();
   int offSet=0;
   SortedTreeNodes sNodes;
   sNodes.set(tree,0);
@@ -1444,8 +1444,8 @@ inline void Octree<Degree>::GetMCIsoTriangles(const Real& isoValue,const int& su
   SetBoundaryMCRootPositions(sDepth,isoValue,boundaryRoots,*boundaryNormalHash,mesh,nonLinearFit);
 
   for(int i=sNodes.nodeCount[sDepth];i<sNodes.nodeCount[sDepth+1];i++){
-    interiorRoots=new hash_map<long long,int>();
-    interiorNormalHash=new hash_map<long long,std::pair<Real,Point3D<Real> > >();
+    interiorRoots=new std::unordered_map<long long,int>();
+    interiorNormalHash=new std::unordered_map<long long,std::pair<Real,Point3D<Real> > >();
     interiorPoints=new std::vector<Point3D<float> >();
 
     temp=sNodes.treeNodes[i]->nextLeaf();
@@ -1681,7 +1681,7 @@ inline void Octree<Degree>::SetIsoSurfaceCorners(const Real& isoValue,const int&
   (void) fullDepthIso;
 
   int i,j;
-  hash_map<long long,Real> values;
+  std::unordered_map<long long,Real> values;
   Real cornerValues[Cube::CORNERS];
   PointIndexValueFunction cf;
   TreeOctNode* temp;
@@ -2123,7 +2123,7 @@ inline void Octree<Degree>::Validate(TreeOctNode* node,const Real& isoValue,cons
 // The assumption made when calling this code is that the edge has at most one root //
 //////////////////////////////////////////////////////////////////////////////////////
 template<int Degree>
-inline int Octree<Degree>::GetRoot(const RootInfo& ri,const Real& isoValue,Point3D<Real> & position,hash_map<long long,std::pair<Real,Point3D<Real> > >& normalHash,const int& nonLinearFit)
+inline int Octree<Degree>::GetRoot(const RootInfo& ri,const Real& isoValue,Point3D<Real> & position,std::unordered_map<long long,std::pair<Real,Point3D<Real> > >& normalHash,const int& nonLinearFit)
 {
   int c1,c2;
   Cube::EdgeCorners(ri.edgeIndex,c1,c2);
@@ -2228,7 +2228,7 @@ inline int Octree<Degree>::GetRoot(const RootInfo& ri,const Real& isoValue,Point
 }
 
 template<int Degree>
-inline int Octree<Degree>::GetRoot(const RootInfo& ri,const Real& isoValue,const int& maxDepth,Point3D<Real>& position,hash_map<long long,std::pair<Real,Point3D<Real> > >& Normals,
+inline int Octree<Degree>::GetRoot(const RootInfo& ri,const Real& isoValue,const int& maxDepth,Point3D<Real>& position,std::unordered_map<long long,std::pair<Real,Point3D<Real> > >& Normals,
                                    Point3D<Real>* normal,const int& nonLinearFit)
 {
   (void) maxDepth;
@@ -2402,9 +2402,9 @@ inline int Octree<Degree>::GetRootPair(const RootInfo& ri,const int& maxDepth,Ro
 }
 
 template<int Degree>
-inline int Octree<Degree>::GetRootIndex(const long long& key,hash_map<long long,int>& boundaryRoots,hash_map<long long,int>* interiorRoots,CoredPointIndex& index)
+inline int Octree<Degree>::GetRootIndex(const long long& key,std::unordered_map<long long,int>& boundaryRoots,std::unordered_map<long long,int>* interiorRoots,CoredPointIndex& index)
 {
-  hash_map<long long,int>::iterator rootIter=boundaryRoots.find(key);
+  std::unordered_map<long long,int>::iterator rootIter=boundaryRoots.find(key);
   if(rootIter!=boundaryRoots.end()){
     index.inCore=1;
     index.index=rootIter->second;
@@ -2423,8 +2423,8 @@ inline int Octree<Degree>::GetRootIndex(const long long& key,hash_map<long long,
 
 template<int Degree>
 inline int Octree<Degree>::SetMCRootPositions(TreeOctNode* node,const int& sDepth,const Real& isoValue,
-                                              hash_map<long long,int>& boundaryRoots,hash_map<long long,int>* interiorRoots,
-                                              hash_map<long long,std::pair<Real,Point3D<Real> > >& boundaryNormalHash,hash_map<long long,std::pair<Real,Point3D<Real> > >* interiorNormalHash,
+                                              std::unordered_map<long long,int>& boundaryRoots,std::unordered_map<long long,int>* interiorRoots,
+                                              std::unordered_map<long long,std::pair<Real,Point3D<Real> > >& boundaryNormalHash,std::unordered_map<long long,std::pair<Real,Point3D<Real> > >* interiorNormalHash,
                                               std::vector<Point3D<float> >* interiorPositions,
                                               CoredMeshData* mesh,const int& nonLinearFit)
 {
@@ -2465,7 +2465,7 @@ inline int Octree<Degree>::SetMCRootPositions(TreeOctNode* node,const int& sDept
 
 template<int Degree>
 inline int Octree<Degree>::SetBoundaryMCRootPositions(const int& sDepth,const Real& isoValue,
-                                                      hash_map<long long,int>& boundaryRoots,hash_map<long long,std::pair<Real,Point3D<Real> > >& boundaryNormalHash,
+                                                      std::unordered_map<long long,int>& boundaryRoots,std::unordered_map<long long,std::pair<Real,Point3D<Real> > >& boundaryNormalHash,
                                                       CoredMeshData* mesh,const int& nonLinearFit)
 {
   Point3D<Real> position;
@@ -2506,7 +2506,7 @@ inline int Octree<Degree>::SetBoundaryMCRootPositions(const int& sDepth,const Re
 }
 
 template<int Degree>
-inline void Octree<Degree>::GetMCIsoEdges(TreeOctNode* node,hash_map<long long,int>& boundaryRoots,hash_map<long long,int>* interiorRoots,const int& sDepth,
+inline void Octree<Degree>::GetMCIsoEdges(TreeOctNode* node,std::unordered_map<long long,int>& boundaryRoots,std::unordered_map<long long,int>* interiorRoots,const int& sDepth,
                                           std::vector<std::pair<long long,long long> >& edges)
 {
   (void) boundaryRoots;
@@ -2517,8 +2517,8 @@ inline void Octree<Degree>::GetMCIsoEdges(TreeOctNode* node,hash_map<long long,i
   int isoTri[DIMENSION*MarchingCubes::MAX_TRIANGLES];
   FaceEdgesFunction fef;
   int ref,fIndex;
-  hash_map<long long,std::pair<RootInfo,int> >::iterator iter;
-  hash_map<long long,std::pair<RootInfo,int> > vertexCount;
+  std::unordered_map<long long,std::pair<RootInfo,int> >::iterator iter;
+  std::unordered_map<long long,std::pair<RootInfo,int> > vertexCount;
 
   fef.edges=&edges;
   fef.maxDepth=fData.depth;
@@ -2590,8 +2590,8 @@ inline void Octree<Degree>::GetMCIsoEdges(TreeOctNode* node,hash_map<long long,i
 }
 
 template<int Degree>
-inline int Octree<Degree>::GetMCIsoTriangles(TreeOctNode* node,CoredMeshData* mesh,hash_map<long long,int>& boundaryRoots,
-                                             hash_map<long long,int>* interiorRoots,std::vector<Point3D<float> >* interiorPositions,const int& offSet,const int& sDepth, bool addBarycenter)
+inline int Octree<Degree>::GetMCIsoTriangles(TreeOctNode* node,CoredMeshData* mesh,std::unordered_map<long long,int>& boundaryRoots,
+                                             std::unordered_map<long long,int>* interiorRoots,std::vector<Point3D<float> >* interiorPositions,const int& offSet,const int& sDepth, bool addBarycenter)
 {
   int tris=0;
   std::vector<std::pair<long long,long long> > edges;
