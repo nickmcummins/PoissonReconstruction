@@ -23,7 +23,7 @@ else()
   vtk_module_add_module(VTK::PoissonReconstruction
     SOURCES ${Module_SRCS}
     )
-  if (NOT WIN32)
+  if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     target_compile_options (PoissonReconstruction PUBLIC -Wno-class-memaccess -Wno-unused-variable -Wno-unused-but-set-variable)
   endif()
 endif()
