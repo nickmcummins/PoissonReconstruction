@@ -238,14 +238,17 @@ int Cube::FaceReflectEdgeIndex(const int& idx,const int& faceIndex){
 	int o,i,j;
 	FactorEdgeIndex(idx,o,i,j);
 	if(o==orientation){return idx;}
-	switch(orientation){
-		case 0:	return EdgeIndex(o,(i+1)%2,j);
-		case 1:
-			switch(o){
-				case 0:	return EdgeIndex(o,(i+1)%2,j);
-				case 2:	return EdgeIndex(o,i,(j+1)%2);
-			};
-		case 2:	return EdgeIndex(o,i,(j+1)%2);
+	switch(orientation)
+        {
+        case 0:	return EdgeIndex(o,(i+1)%2,j);
+        case 1:
+          switch(o)
+          {
+          case 0:  return EdgeIndex(o,(i+1)%2,j);
+          case 2:  return EdgeIndex(o,i,(j+1)%2);
+          default: return -1;
+          };
+        case 2:	return EdgeIndex(o,i,(j+1)%2);
         default: return -1;
 	};
 }

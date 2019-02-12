@@ -520,7 +520,7 @@ int SparseSymmetricMatrix<T>::Solve(const SparseSymmetricMatrix<T>& M,const Vect
 
 template<class T>
 template<class T2>
-int SparseSymmetricMatrix<T>::Solve(const SparseSymmetricMatrix<T>& M,const Vector<T>& diagonal,const Vector<T2>& b,const int& iters,Vector<T2>& solution,const T2 eps,const int& reset){
+int SparseSymmetricMatrix<T>::Solve(const SparseSymmetricMatrix<T>& M,const Vector<T>& diagonal,const Vector<T2>& b,const int& iters,Vector<T2>& solution,const T2,const int& reset){
 	Vector<T2> d,r,Md;
 
 	if(reset){
