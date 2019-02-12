@@ -1080,11 +1080,11 @@ OctNode<NodeData,Real>::NeighborKey::~NeighborKey(void){
 }
 
 template<class NodeData,class Real>
-void OctNode<NodeData,Real>::NeighborKey::set(const int& d){
+void OctNode<NodeData,Real>::NeighborKey::set(const int& dI){
 	if(neighbors){delete[] neighbors;}
 	neighbors=NULL;
-	if(d<0){return;}
-	neighbors=new Neighbors[d+1];
+	if(dI<0){return;}
+	neighbors=new Neighbors[dI+1];
 }
 template<class NodeData,class Real>
 typename OctNode<NodeData,Real>::Neighbors& OctNode<NodeData,Real>::NeighborKey::setNeighbors(OctNode<NodeData,Real>* node){
