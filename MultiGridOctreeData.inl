@@ -32,6 +32,11 @@
 =========================================================================*/
 
 
+#if defined(_MSC_VER)
+# pragma warning (push)
+# pragma warning (disable: 4267) /* conversion from 'size_t' to 'int', possible loss of dataconversion from 'size_t' to 'int', possible loss of data */
+# pragma warning (disable: 4701) /* potentially uninitialized local variable */
+#endif
 
 #include <vtkSmartPointer.h>
 #include <vtkXMLPolyDataReader.h>
@@ -2848,3 +2853,6 @@ inline long long VertexData::EdgeIndex(const TreeOctNode* node,const int& eIndex
   };
   return (long long)(idx[0]) | (long long)(idx[1])<<15 | (long long)(idx[2])<<30;
 }
+#if defined(_MSC_VER)
+# pragma warning (pop)
+#endif
