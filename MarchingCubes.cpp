@@ -49,8 +49,8 @@ int Square::EdgeIndex(const int& orientation,const int& i){
 		case 1: // y
 			if(!i)	{return  3;} // (0,0) -> (0,1)
 			else	{return  1;} // (1,0) -> (1,1)
+        default: return -1;
 	};
-	return -1;
 }
 void Square::FactorEdgeIndex(const int& idx,int& orientation,int& i){
 	switch(idx){
@@ -62,6 +62,7 @@ void Square::FactorEdgeIndex(const int& idx,int& orientation,int& i){
 			orientation=1;
 			i=((idx/2)+1)%2;
 			return;
+        default: return;
 	};
 }
 void Square::EdgeCorners(const int& idx,int& c1,int& c2){
@@ -76,6 +77,7 @@ void Square::EdgeCorners(const int& idx,int& c1,int& c2){
 			c1=CornerIndex(i,0);
 			c2=CornerIndex(i,1);
 			break;
+        default: break;
 	};
 }
 int Square::ReflectEdgeIndex(const int& idx,const int& edgeIndex){
@@ -92,8 +94,8 @@ int Square::ReflectCornerIndex(const int& idx,const int& edgeIndex){
 	switch(orientation){
 		case 0:	return CornerIndex((x+1)%2,y);
 		case 1:	return CornerIndex(x,(y+1)%2);
+        default: return -1;
 	};
-	return -1;
 }
 
 
@@ -133,6 +135,7 @@ void Cube::FactorFaceIndex(const int& idx,int& x,int& y,int& z){
 		case 3:		y= 1;	break;
 		case 4:		z=-1;	break;
 		case 5:		z= 1;	break;
+        default: break;
 	};
 }
 void Cube::FactorFaceIndex(const int& idx,int& dir,int& offSet){
@@ -172,6 +175,7 @@ void Cube::FacesAdjacentToEdge(const int& eIndex,int& f1Index,int& f2Index){
 			f1Index=FaceIndex(i1, 0, 0);
 			f2Index=FaceIndex( 0,i2, 0);
 			break;
+        default: break;
 	};
 }
 void Cube::EdgeCorners(const int& idx,int& c1,int& c2){
@@ -190,6 +194,7 @@ void Cube::EdgeCorners(const int& idx,int& c1,int& c2){
 			c1=CornerIndex(i1,i2,0);
 			c2=CornerIndex(i1,i2,1);
 			break;
+        default: break;
 	};
 }
 void Cube::FaceCorners(const int& idx,int& c1,int& c2,int& c3,int& c4){
@@ -213,6 +218,7 @@ void Cube::FaceCorners(const int& idx,int& c1,int& c2,int& c3,int& c4){
 		c3=CornerIndex(0,1,i);
 		c4=CornerIndex(1,1,i);
 		return;
+        default: return;
 	}
 }
 int Cube::AntipodalCornerIndex(const int& idx){
@@ -240,8 +246,8 @@ int Cube::FaceReflectEdgeIndex(const int& idx,const int& faceIndex){
 				case 2:	return EdgeIndex(o,i,(j+1)%2);
 			};
 		case 2:	return EdgeIndex(o,i,(j+1)%2);
+        default: return -1;
 	};
-	return -1;
 }
 int Cube::FaceReflectCornerIndex(const int& idx,const int& faceIndex){
 	int orientation=faceIndex/2;
@@ -251,8 +257,8 @@ int Cube::FaceReflectCornerIndex(const int& idx,const int& faceIndex){
 		case 0:	return CornerIndex((x+1)%2,y,z);
 		case 1:	return CornerIndex(x,(y+1)%2,z);
 		case 2: return CornerIndex(x,y,(z+1)%2);
+        default: return -1;
 	};
-	return -1;
 }
 int Cube::EdgeReflectCornerIndex(const int& idx,const int& edgeIndex){
 	int orientation,x,y,z;
@@ -262,8 +268,8 @@ int Cube::EdgeReflectCornerIndex(const int& idx,const int& edgeIndex){
 		case 0:	return CornerIndex( x     ,(y+1)%2,(z+1)%2);
 		case 1:	return CornerIndex((x+1)%2, y     ,(z+1)%2);
 		case 2:	return CornerIndex((x+1)%2,(y+1)%2, z     );
+        default: return -1;
 	};
-	return -1;
 }
 int	Cube::EdgeReflectEdgeIndex(const int& edgeIndex){
 	int o,i1,i2;
@@ -383,6 +389,7 @@ void MarchingSquares::SetVertex(const int& e,const double values[Square::CORNERS
 			vertexList[e][1]=Interpolate(values[c1]-iso,values[c2]-iso);
 			vertexList[e][0]=i;
 			break;
+        default: break;
 	}
 }
 double MarchingSquares::Interpolate(const double& v1,const double& v2){return v1/(v1-v2);}
@@ -825,6 +832,7 @@ void MarchingCubes::SetVertex(const int& e,const double values[Cube::CORNERS],co
 			t=Interpolate(values[Cube::CornerIndex(0,1,0)]-iso,values[Cube::CornerIndex(0,1,1)]-iso);
 			vertexList[e][0]=0.0;		vertexList[e][1]=1.0;		vertexList[e][2]=t;
 			break;
+        default: break;
 	};
 }
 double MarchingCubes::Interpolate(const double& v1,const double& v2){return v1/(v1-v2);}
@@ -1007,6 +1015,7 @@ void MarchingCubes::SetVertex(const int& e,const float values[Cube::CORNERS],con
 			t=Interpolate(values[Cube::CornerIndex(0,1,0)]-iso,values[Cube::CornerIndex(0,1,1)]-iso);
 			vertexList[e][0]=0.0;		vertexList[e][1]=1.0;		vertexList[e][2]=t;
 			break;
+        default: break;
 	};
 }
 float MarchingCubes::Interpolate(const float& v1,const float& v2){return v1/(v1-v2);}

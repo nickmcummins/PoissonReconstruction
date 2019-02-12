@@ -306,7 +306,7 @@ inline void Octree<Degree>::NonLinearGetSampleDepthAndWeight(TreeOctNode* node,c
   TreeOctNode* temp=node;
   weight=Real(1.0)/NonLinearGetSampleWeight(temp,position);
   if(weight>=samplesPerNode+1)
-  {depth=Real(temp->depth()+log(weight/(samplesPerNode+1))/log(double(1<<(DIMENSION-1))));}
+  {depth=Real(temp->depth()+std::log(weight/(samplesPerNode+1))/std::log(double(1<<(DIMENSION-1))));}
   else
   {
     Real oldAlpha,newAlpha;
@@ -317,7 +317,7 @@ inline void Octree<Degree>::NonLinearGetSampleDepthAndWeight(TreeOctNode* node,c
       oldAlpha=newAlpha;
       newAlpha=Real(1.0)/NonLinearGetSampleWeight(temp,position);
     }
-    depth=Real(temp->depth()+log(newAlpha/(samplesPerNode+1))/log(newAlpha/oldAlpha));
+    depth=Real(temp->depth()+std::log(newAlpha/(samplesPerNode+1))/std::log(newAlpha/oldAlpha));
   }
   weight=Real(pow(double(1<<(DIMENSION-1)),-double(depth)));
 }

@@ -445,10 +445,6 @@ inline void PPolynomial<Degree>::printnl(void) const
 template<int Degree>
 inline PPolynomial<Degree> PPolynomial<Degree>::ConstantFunction(const double& radius)
 {
-	if(Degree<0){
-		fprintf(stderr,"Could not set degree %d polynomial as constant\n",Degree);
-		exit(0);
-	}
 	PPolynomial q;
 	q.set(2);
 

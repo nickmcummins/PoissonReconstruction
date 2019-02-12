@@ -90,6 +90,10 @@ public:
   ~SortedTreeNodes(void);
   void set(TreeOctNode & root, const int & setIndex);
 };
+#if defined(_MSC_VER)
+# pragma warning (push)
+# pragma warning (disable: 4201) /* nonstandard extension used: nameless struct/union */
+#endif
 
 class TreeNodeData
 {
@@ -102,6 +106,9 @@ public:
       Real centerWeightContribution;
     };
   };
+#if defined(_MSC_VER)
+# pragma warning (pop)
+#endif
   Real value;
 
   TreeNodeData();
