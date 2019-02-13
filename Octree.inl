@@ -108,7 +108,6 @@ inline int OctNode<NodeData,Real>::initChildren(void)
 	}
 	if(!children){
 		fprintf(stderr,"Failed to initialize children in OctNode::initChildren\n");
-		exit(0);
 		return 0;
 	}
 	int td,toff[3];
@@ -815,7 +814,6 @@ int OctNode<NodeData,Real>::CompareForwardPointerDepths(const void* v1,const voi
 	if(n1->off[0]!=n2->off[0]){return int(n1->off[0])-int(n2->off[0]);}
 	if(n1->off[1]!=n2->off[1]){return int(n1->off[1])-int(n2->off[1]);}
 	return int(n1->off[2])-int(n2->off[2]);
-	return 0;
 }
 template <class NodeData,class Real>
 int OctNode<NodeData,Real>::CompareBackwardDepths(const void* v1,const void* v2){
