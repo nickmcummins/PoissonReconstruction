@@ -36,6 +36,7 @@
 #include <cmath>
 #include <vector>
 #include "Hash.h"
+#include <cstdio>
 
 template< class Real >
 Real Random(void);
